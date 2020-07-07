@@ -1,24 +1,26 @@
 import React, { useEffect } from 'react';
-import { useSelector ,useDispatch } from 'react-redux'
-
+import { useDispatch } from 'react-redux'
 import { requestPokemosData } from '../../store/ducks/pokemons'
+
+//Components 
+
+import Card from '../../components/card/Card'
+
 
 
 const Home = () => {
 
-    const pokemonData = useSelector(state => state);
-    
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(requestPokemosData())
     }, [])
 
-    console.log(pokemonData)
 
     return(
         <>
         <h1>Pokedex</h1>
+        <Card/>
         </>
     )
 }
