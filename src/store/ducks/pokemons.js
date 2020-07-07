@@ -1,11 +1,11 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects'
-import { fectPokemon } from '../../utils/API'
+import { fectGruopPokemon } from '../../utils/API'
 
 /**********SAGAS***********/
 
 function* getPokemons() {
     try {
-        const pokemons = yield call(fectPokemon);
+        const pokemons = yield call(fectGruopPokemon);
         yield put(receivePokemonsData(pokemons))
     } catch (error) {
         console.log("No se ha podido obtener la información", error);
