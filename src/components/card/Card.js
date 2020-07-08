@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { createSelector } from 'reselect'
 
 //Material UI
 
@@ -30,34 +28,27 @@ const useStyles = makeStyles({
   });
 
 
-const CardPokemon = () => {
-
+const CardPokemon = ({ allPokemonData }) => {
+    
     //State React
 
     const [open, setOpen] = useState(false);
     const [pokemonName, setPokemonName] = useState("");
     const [indexPokemon, setIndexPokeon] = useState(0);
-    
 
     //Styles Material UI
 
     const classes = useStyles();
 
-    //Create Selector Redux
+    //Variables
 
-    const selectPokemon = createSelector(
-        state => state.pokemons.results,
-        state => state
-    )
+    let regex = /\/pokemon\/(0*[1-9][0-9]*)/;
 
-    const pokemonData = useSelector(state => selectPokemon(state));
-
-    let regex = /\/pokemon\/(0*[1-9][0-9]*)/
 
     //Manage Component
 
     const PokemonCard = () => (
-        pokemonData ? pokemonData.map((pokemon, idx) => {
+        allPokemonData.pokemonData ? allPokemonData.pokemonData.map((pokemon, idx) => {
   
         let resRegex = pokemon.url.match(regex)
 
@@ -80,15 +71,36 @@ const CardPokemon = () => {
                         </CardActionArea>
                     </Card>
         }) : "Loading..."
-    )
+    );
 
+    const ResultPokemonCard = () => {
 
-
+        let resRegex = Object.keys(allPokemonData.resultPokemon).length > 0 ? allPokemonData.resultPokemon.url.match(regex) : 1;
+        
+        return   <Card className={classes.root} onClick={() => {
+                    setOpen(true);
+                    setIndexPokeon(resRegex[1]);
+                    setPokemonName(allPokemonData.resultPokemon.name)
+                }}>
+                    <CardActionArea >
+                        <CardMedia
+                        className={classes.media}
+                        image={`${process.env.PUBLIC_URL}/sprites/${resRegex[1]}.png`}
+                        title={allPokemonData.resultPokemon.name}
+                        />
+                        <CardContent className="card-pokemon-content">
+                        <Typography gutterBottom variant="h5" component="h2">
+                            {allPokemonData.resultPokemon.name}
+                        </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+    };
 
     return (
         <>
         <div className="card-pokemon-container">
-            <PokemonCard/>
+            {Object.keys(allPokemonData.resultPokemon).length > 0 && Object.keys(allPokemonData.searchPokemon).length > 0 ? <ResultPokemonCard/> : <PokemonCard/>}
         </div>
         <CardDetail 
         open={open}
