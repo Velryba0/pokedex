@@ -1,0 +1,56 @@
+.MuiDialogTitle-root {
+    display: flex;
+    justify-content: flex-end;
+
+    h2 button {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    h2 p {
+        position: absolute;
+        top: -15px;
+        left: 0;
+        margin: 12px 0 12px 21px;
+        font-family: 'Ranchers', cursive !important;
+        font-size: 1.8em;
+    }
+}
+
+.MuiDialogContent-root {
+
+    //Image card-detail
+
+    div img {
+        width: 150px;
+        height: 150px;
+        transform: translate(-15px, -6px);
+    }
+
+    //Attributes Height and Weight card-detail container
+
+    div div div div {
+        margin: 12px;
+    }
+
+    //All text attributes card-detail
+
+    div div div div p {
+        font-family: 'Ranchers', cursive !important;
+    }
+
+    
+
+
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
